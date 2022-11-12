@@ -29,13 +29,11 @@ class SegLayer(tf.keras.layers.Layer):
             self.L2[j] = layers.Conv1D(i, (3), activation='relu',padding = "causal")
             self.Lb1[j] = layers.Conv1D(int(2*i), (3), activation='relu',padding = "causal")
             self.Lb2[j] = layers.Conv1D(int(2*i), (3), activation='relu',padding = "causal")
-            self.batch[j] = layers.BatchNormalization()
             forward_layer = layers.LSTM(self.Lstm_Neurons[j], return_sequences=True,recurrent_dropout=0.15)
             backward_layer = layers.LSTM(self.Lstm_Neurons[j], return_sequences=True, go_backwards=True,recurrent_dropout=0.15)
             self.LSTM1[j] = layers.Bidirectional(forward_layer, backward_layer=backward_layer,dtype=tf.float32)
             j = j+1
         
-        self.batch_end = layers.BatchNormalization()
         
         j = 0  
         for i in self.Lstm_Neurons:
@@ -55,7 +53,6 @@ class SegLayer(tf.keras.layers.Layer):
         for i in range(len(self.Kernels)):
             x = self.L1[i](x)
             x = self.L2[i](x)
-            # x = self.batch[i](x)
             y[i] = self.LSTM1[i](x)
             
         x = self.convend(x)
@@ -71,7 +68,6 @@ class SegLayer(tf.keras.layers.Layer):
             x = self.Lb1[i](x)
             x = self.Lb2[i](x)
             
-        # x = self.batch_end(x)
         x = self.output_layer(x)
         x = layers.Activation('sigmoid')(x)
         

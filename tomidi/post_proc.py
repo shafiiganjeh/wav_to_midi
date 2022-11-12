@@ -1,9 +1,9 @@
 
-import librosa
-from midiutil.MidiFile import MIDIFile
-import numpy as np
 
-def post_proc(onset, length , vel,o_confidence,l_confidence):
+def post_proc(onset, length , vel):
+
+    o_confidence = .4
+    l_confidence = .05
    
     length_pp = np.array([], dtype=np.float32).reshape(0,88) 
     vel_pp = np.array([], dtype=np.float32).reshape(0,88) 

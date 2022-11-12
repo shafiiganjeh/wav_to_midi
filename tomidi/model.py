@@ -47,12 +47,24 @@ class NoteDET:
         self.build()
         
         
+    #builds the model
     def build(self):
+        #fully convolutional model
         self.build_convstack()
+        
+        #segmentation model
         self.TaktModel2()
+        
+        #onset lstm layer
         self.build_lstm()
+        
+        #vellocity lstm layer
         self.build_vel_lstm()
+        
+        #length lstm layer
         self.build_lstm_length()
+        
+        #the entire model
         self.build_model()
         
     
@@ -237,10 +249,6 @@ class NoteDET:
         return x
     
     
-    def _reconstruct(self,data):
-        rec = self.model.predict(data)
-        return rec
-    
     #losses-----------------------------------------------------------
     
     
@@ -278,21 +286,35 @@ class NoteDET:
         return l1
 
 
-    # ----------------------compile and train methods
+    # compile and train methods-------------------------------------------
+    
+    def model_reconstruct(self,data):
+        rec = self.model.predict(data)
+        return rec
         
         
-    def Takt_train(self, x,val,epoch,optm):  
+    def takt_train(self, x,val,epoch,optm):  
         inp = self._Inp()
         inp2 = self._Inp3()
         inp3 = self._Inp5()
         xm = self.TaktModel2(inp)
         self.takt_train = Model([inp,inp2,inp3], xm , name = "Takt_model")
+        
+        M = [None]*int(self.input_len/40+4)
+        for i in range(int(self.input_len/40+4)):
+            M[i] =  tf.constant(np.arange(200)+int(i*40))
+        f = inp2
+        f = tf.keras.layers.ZeroPadding1D(padding=160)(f)
+        f = tf.gather(f, M, axis=1, batch_dims=0)
+        f = tf.clip_by_value(K.sum(f,axis = -1), clip_value_min=0, clip_value_max=1)
+        
+        self.takt_train.add_metric(tf.keras.metrics.binary_accuracy( f,xm ,threshold=0.3), name="bin.acc", aggregation="mean")
         self.takt_train.summary()
         self.takt_train.compile(optimizer = optm, loss=self.lossTakt)
         self.takt_train.fit(x,validation_data=val, epochs=epoch, verbose=1,shuffle = True)
         
         
-    def Length_train(self, x,val,epoch,optm):  
+    def length_train(self, x,val,epoch,optm):  
         inp = self._Inp()
         inp2 = self._Inp3()
         inp3 = self._Inp5()
@@ -307,7 +329,7 @@ class NoteDET:
         self.length_train.fit(x,validation_data=val, epochs=epoch, verbose=1,shuffle = True)
         
         
-    def Onset_train(self, x,val,epoch,optm):  
+    def onset_train(self, x,val,epoch,optm):  
         inp = self._Inp()
         inp2 = self._Inp3()
         inp3 = self._Inp5()
@@ -327,7 +349,7 @@ class NoteDET:
         self.onset_train.fit(x,validation_data=val, epochs=epoch, verbose=1,shuffle = True)
         
         
-    def Vel_train(self, x,val,epoch,optm):  
+    def vel_train(self, x,val,epoch,optm):  
         inp = self._Inp()
         inp2 = self._Inp3()
         inp3 = self._Inp5()
@@ -343,7 +365,7 @@ class NoteDET:
         self.vel_train.fit(x,validation_data=val, epochs=epoch, verbose=1,shuffle = True)
         
         
-    def Model_save(self, folder = "."):
+    def model_save(self, folder = "."):
         self._create_folder(folder)
         parameters = [self.input_len,
                       self.input_onset]
@@ -362,7 +384,7 @@ class NoteDET:
 
 
     @classmethod
-    def Model_load(cls, folder="."):
+    def model_load(cls, folder="."):
         parameters_path = os.path.join(folder, "parameters.pkl")
         with open(parameters_path, "rb") as f:
             parameters = pickle.load(f)
