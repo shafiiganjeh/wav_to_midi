@@ -14,10 +14,11 @@ import librosa
 import pretty_midi
 from sklearn import preprocessing
 from midi2audio import FluidSynth
+import post_proc
 
 
 # Models
 import seg_model
 from model import NoteDET
-import post_proc
+
 
