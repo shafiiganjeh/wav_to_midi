@@ -10,13 +10,13 @@ Currently the model is able to transcribe piano music and output a midi. The qua
 Here are some examples:
 
 <video width="320" height="240" controls>
-  <source src="/home/borz/Desktop/git/wav_to_midi/resources/mozart.mp4" type="video/mp4">
+  <source src="https://github.com/shafiiganjeh/wav_to_midi/blob/main/resources/mozart.mp4" type="video/mp4">
 </video>
 
 [Original video](https://www.youtube.com/watch?v=Jo7ox5ptjGY)
 
 <video width="320" height="240" controls>
-  <source src="/home/borz/Desktop/git/wav_to_midi/resources/mario.mp4" type="video/mp4">
+  <source src="https://github.com/shafiiganjeh/wav_to_midi/blob/main/resources/mario.mp4" type="video/mp4">
 </video>
 
 [Original video](https://www.youtube.com/watch?v=SdqKEHqt94g)
@@ -79,7 +79,7 @@ NoteDET.vel_train(data_set,validation_set,epoch,optimizer)
     
        number of epochs
        
-    optimizer
+    optimizer: keras.optimizers
     
        tensorflow optimizer
 </pre>
