@@ -9,14 +9,17 @@ Currently the model is able to transcribe piano music and output a midi. The qua
 
 Here are some examples:
 
-<video src="https://www.youtube.com/watch?v=Jo7ox5ptjGY" controls="controls" style="max-width: 730px;">
-</video>
+
+https://user-images.githubusercontent.com/82012743/201483046-880c8cae-b91a-403c-9e7c-826e3d583c90.mp4
+
 
 [Original video](https://www.youtube.com/watch?v=Jo7ox5ptjGY)
 
-<video width="320" height="240" controls>
-  <source src="https://raw.githubusercontent.com/shafiiganjeh/wav_to_midi/main/resources/mario.mp4" type="video/mp4">
-</video>
+
+
+https://user-images.githubusercontent.com/82012743/201483234-1a4a0362-e8d8-478f-8942-f77d695b33cf.mp4
+
+
 
 [Original video](https://www.youtube.com/watch?v=SdqKEHqt94g)
 
