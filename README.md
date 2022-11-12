@@ -16,7 +16,7 @@ Here are some examples:
 [Original video](https://www.youtube.com/watch?v=Jo7ox5ptjGY)
 
 <video width="320" height="240" controls>
-  <source src="https://github.com/shafiiganjeh/wav_to_midi/blob/main/resources/mario.mp4" type="video/mp4">
+  <source src="https://raw.githubusercontent.com/shafiiganjeh/wav_to_midi/main/resources/mario.mp4" type="video/mp4">
 </video>
 
 [Original video](https://www.youtube.com/watch?v=SdqKEHqt94g)
