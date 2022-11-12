@@ -17,7 +17,7 @@ from midi2audio import FluidSynth
 
 
 # Models
-from seg_model import SegLayer
+import seg_model
 from model import NoteDET
 import post_proc
 
