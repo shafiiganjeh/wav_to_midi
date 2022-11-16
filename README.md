@@ -56,7 +56,7 @@ NoteDET(sample_length,keys)
     
        length of the training sample (should be at least 200)
        
-    keys: 
+    keys: int
     
        number of piano keys (usually 88)
 </pre>
