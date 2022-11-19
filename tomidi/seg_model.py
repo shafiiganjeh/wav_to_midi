@@ -1,4 +1,4 @@
-
+import tensorflow as tf
 
 class SegLayer(tf.keras.layers.Layer):
     def __init__(self,output_features):
