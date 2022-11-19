@@ -84,7 +84,7 @@ def create_sample(input_wav,input_midi):
     x2c = np.vstack([x2c, np.zeros((input_width,88), dtype=np.float32)])
     xv = np.vstack([xv, np.zeros((input_width,88), dtype=np.float32)])
     yc = np.vstack([yc, np.zeros((input_width,88), dtype=np.float32)])
-    shif = np.arange(0, math.floor(len(x1c)/1000)-1, 1, dtype=int)
+    shif = np.arange(0, math.floor(len(x1c)/input_width)-1, 1, dtype=int)
 
     X1 = np.stack([x1c[slice(shift*i, input_width+shift*i)] for i in shif], axis=0)
     X2 = np.stack([x2c[slice(shift*i, input_width+shift*i)] for i in shif], axis=0)
