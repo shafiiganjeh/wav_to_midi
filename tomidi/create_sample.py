@@ -25,7 +25,7 @@ def create_sample(input_wav,input_midi):
     
     #convert the data audio into a mel-spectrogram
     scale, sr = librosa.load(input_wav, sr=None)
-    mel_spectrogram = librosa.feature.melspectrogram(scale, sr=sr,  n_mels=230, fmin=0, hop_length = 300,win_length=2024)
+    mel_spectrogram = librosa.feature.melspectrogram(y = scale, sr=sr,  n_mels=230, fmin=0, hop_length = 300,win_length=2024)
     log_mel_spectrogram = librosa.power_to_db(mel_spectrogram)
     t = librosa.frames_to_time(np.arange(len(mel_spectrogram[1])), sr=sr,hop_length = 300,n_fft =2024 )
    
